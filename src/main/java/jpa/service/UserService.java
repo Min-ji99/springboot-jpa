@@ -21,7 +21,7 @@ public class UserService {
             return new UserResponse(id, "", "해당 ID의 유저가 없습니다.");
         }
         User user=optUser.get();
-        return new UserResponse(user.getId(), user.getUsername(), "");
+        return new UserResponse(user.getId(), user.getUsername(), "회원등록 성공");
     }
 
     public UserResponse add(UserRequest dto) {
