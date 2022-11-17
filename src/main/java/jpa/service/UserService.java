@@ -1,5 +1,6 @@
 package jpa.service;
 
+import jpa.domain.dto.UserRequest;
 import jpa.domain.dto.UserResponse;
 import jpa.domain.entity.User;
 import jpa.repository.UserRepository;
@@ -21,5 +22,11 @@ public class UserService {
         }
         User user=optUser.get();
         return new UserResponse(user.getId(), user.getUsername(), "");
+    }
+
+    public UserResponse add(UserRequest dto) {
+        User user=dto.toEntity();
+        User savedUser=userRepository.save(user);
+        return new UserResponse(savedUser.getId(), savedUser.getUsername(), savedUser.getPassword());
     }
 }
