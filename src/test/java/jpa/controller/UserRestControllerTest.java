@@ -43,6 +43,23 @@ class UserRestControllerTest {
         verify(userService).getUserById(id);
     }
     @Test
+    @DisplayName("해당 id가 없을 때 message 잘 나오는지 확인")
+    void getUserByIdTest2() throws Exception {
+        long id=100l;
+
+        given(userService.getUserById(id))
+                .willReturn(new UserResponse(id, "", "해당 ID의 유저가 없습니다."));
+
+        String url="/api/v1/users/"+id;
+        mockMvc.perform(get(url))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.username").exists())
+                .andExpect(jsonPath("$.message").exists())
+                .andDo(print());
+        verify(userService).getUserById(id);
+    }
+    @Test
     @DisplayName("Post /api/v1/users 테스트")
     void addUserTest(){
 
