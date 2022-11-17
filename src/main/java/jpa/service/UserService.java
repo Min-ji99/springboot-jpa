@@ -26,6 +26,11 @@ public class UserService {
 
     public UserResponse add(UserRequest dto) {
         User user=dto.toEntity();
+        Optional<User> optUser=userRepository.findByUsername(dto.getUsername());
+        if(!optUser.isEmpty()){
+            return UserResponse.builder()
+                    .message("username이 중복입니다.").build();
+        }
         User savedUser=userRepository.save(user);
         return new UserResponse(savedUser.getId(), savedUser.getUsername(), savedUser.getPassword());
     }
