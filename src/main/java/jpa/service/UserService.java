@@ -32,6 +32,6 @@ public class UserService {
                     .message("username이 중복입니다.").build();
         }
         User savedUser=userRepository.save(user);
-        return new UserResponse(savedUser.getId(), savedUser.getUsername(), savedUser.getPassword());
+        return new UserResponse(savedUser.getId(), savedUser.getUsername(), "회원등록 성공");
     }
 }
